@@ -1,3 +1,3 @@
-![ratakilometrit.js](logo.svg "Ratakilometrit.js")
+![ratakilometri.js](logo.png "Ratakilometri.js")
 
-Coming soon!
+Calculate distances between railways stations of Finland
