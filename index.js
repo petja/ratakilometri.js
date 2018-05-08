@@ -1,16 +1,81 @@
 const Graph = require('node-dijkstra')
 const fetch = require('node-fetch')
 
+// Config
+const CACHE_MAX_AGE = 3600000
+
 const toJSON = (resp) => resp.json()
 
-async function getAllStations() {
-    const url = `https://rata.digitraffic.fi/infra-api/0.2/rautatieliikennepaikat.json`
-    
-    const infraStations = await fetch(url).then(toJSON)
-    const stationOIDs = Object.keys(infraStations)
+let cached = {}
+let cachedAt = null
 
-    const stations = stationOIDs.reduce((acc1, oid) => {
-        const station = infraStations[oid][0]
+const getRoute = async (fromStation, toStation, opts = {}) => {
+    const distances = await getDistances()
+    const graph = new Graph(distances)
+
+    const {path, cost} = graph.path(fromStation, toStation, {
+        ...opts,
+        cost            : true,
+    })
+
+    return {
+        route           : path,
+        distance        : cost,
+    }
+}
+
+const getDistance = async (fromStation, toStation, opts) => (
+    await (getRoute(fromStation, toStation, opts)).distance
+)
+
+const getAllStations = () => {
+    const url = `https://rata.digitraffic.fi/infra-api/0.2/rautatieliikennepaikat.json`
+    return fetch(url).then(toJSON)
+}
+
+const getDistances = async () => {
+    // If cache isn't stale, return distance data straight from the cache
+    const cacheInvalidAt = Date.now() - CACHE_MAX_AGE
+    if(cachedAt >= cacheInvalidAt) return cached
+
+    const stations = await getAllStations()
+    const groupedByTrack = groupStationsByTrackId(stations)
+
+    cached = processAllTracks(groupedByTrack)
+    cachedAt = Date.now()
+
+    return cached
+}
+
+const processAllTracks = (groupedByTrack) => (
+    Object.keys(groupedByTrack).reduce((acc, trackId) => {
+        const distances = getDistancesWithinTrack(groupedByTrack[trackId])
+
+        return Object.keys(distances).reduce((acc2, fromStation) => {
+            if(!acc2[fromStation]) acc2[fromStation] = {}
+
+            acc2[fromStation] = {
+                ...acc[fromStation],
+                ...distances[fromStation],
+            }
+
+            return acc2
+        }, acc)
+    }, {})
+)
+
+/*
+    Group stations by track they belong to
+
+    Expected input:
+    {"x.x.xxx.LIVI.INFRA.39.81260": {}}
+
+    Expected output:
+    {"003": [{"code": "HL", "distance": 107}], "007": []}
+*/
+const groupStationsByTrackId = (stations) => (
+    Object.keys(stations).reduce((acc1, oid) => {
+        const station = stations[oid][0]
         const code = station.lyhenne.toUpperCase()
 
         const locations = getLocationsOfStation(station)
@@ -24,15 +89,7 @@ async function getAllStations() {
 
         return acc1
     }, {})
-
-    console.log(getDistancesWithinTrack(stations['003']))
-
-    //console.log(require('util').inspect(stations, {colors: true}))
-}
-
-// MAIN
-getAllStations().catch(err => console.error(err))
-/////////
+)
 
 /*
     Get distances between all stations within track
@@ -71,16 +128,7 @@ const getLocationsOfStation = (station) => {
     }), {})
 }
 
-// YOLO
-const yolo = (tracks) => (
-    Object.keys(tracks).reduce((acc, trackId) => {
-        if (! acc[trackId]) acc[trackId] = {}
-
-        acc[trackId] = {
-            ...acc[trackId],
-            ...tracks[trackId],
-        }
-
-        return acc
-    })
-)
+module.exports = {
+    getRoute,
+    getDistance,
+}
