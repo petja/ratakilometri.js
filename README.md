@@ -7,6 +7,8 @@
 
 Find the shortest route between two railway stations of Finland by using Dijkstra's algorithm. Station location data the library uses is provided by [Digitraffic / Finnish Transport Agency](http://digitraffic.liikennevirasto.fi/en/) and shared with [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). If you're using this library, please remember to not only backlink into this library, but also mention about the data source.
 
+**:warning: Track kilometers are not always exactly 1000 meters long. Because of this, there might be some inaccuracy in distances. We're currently trying to solve this problem.**
+
 ## Install
 ```
 yarn add ratakilometri
