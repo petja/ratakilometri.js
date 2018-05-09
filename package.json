@@ -1,13 +1,13 @@
 {
   "name": "ratakilometri",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest"
   },
   "author": "Petja Touru <hello@petja.me>",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "dependencies": {
     "node-dijkstra": "^2.5.0",
     "node-fetch": "^2.1.2"

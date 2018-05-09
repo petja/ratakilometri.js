@@ -1,9 +1,11 @@
 ![ratakilometri.js](logo.png "Ratakilometri.js")
 
-[![Build Status](https://travis-ci.org/petja/ratakm.svg?branch=master)](https://travis-ci.org/petja/ratakm)
+[![Build Status](https://travis-ci.org/petja/ratakilometri.js.svg?branch=master)](https://travis-ci.org/petja/ratakilometri.js)
+[![npm](https://img.shields.io/npm/v/ratakilometri.svg)](https://yarnpkg.com/en/package/ratakilometri)
+[![license](https://img.shields.io/github/license/petja/ratakilometri.js.svg)](https://github.com/petja/ratakilometri.js/blob/master/LICENSE)
 [![Digitraffic](https://img.shields.io/badge/data_source-digitraffic-blue.svg)](http://digitraffic.liikennevirasto.fi/en/)
 
-Find the shortest route between two railway stations of Finland by using Dijkstra's algorithm. Station location data is provided by Finnish Transport Agency and shared with Creative Commons BY license.
+Find the shortest route between two railway stations of Finland by using Dijkstra's algorithm. Station location data the library uses is provided by [Digitraffic / Finnish Transport Agency](http://digitraffic.liikennevirasto.fi/en/) and shared with [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). If you're using this library, please remember to not only backlink into this library, but also mention about the data source.
 
 ## Install
 ```
