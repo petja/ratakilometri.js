@@ -8,34 +8,47 @@ Find the shortest route between two railway stations of Finland by using Dijkstr
 
 ## Install
 
+With Yarn:
+
 ```
 yarn add ratakilometri
 ```
 
+Or with NPM:
+
+```
+npm i -S ratakilometri
+```
+
 ## Usage
 
-```
-const {getRoute} = require('ratakilometri')
-// OR
-import {getRoute} from 'ratakilometri'
+```javascript
+const { getRoute, getDistance } = require('ratakilometri')()
 ```
 
-To find out distance between Hämeenlinna (HL) and Kouvola (KV), you would call:
+Or this way:
 
-```
-const {route, distance} = await getRoute('HL', 'KV')
-console.log(distance)
+```javascript
+import ratakm from 'ratakilometri'
+const { getRoute, getDistance } = ratakm()
 ```
 
-Please note that `getRoute` returns `Promise`.
+To find out distance or route:
+
+```javascript
+const route = getRoute('HL', 'KV')
+const distance = getDistance('TUS', 'HKI')
+
+console.log(route, distance)
+```
 
 ## Options
 
 As we pass parameters of `getRoute` almost directly to `node-dijkstra`, you can use [options object](https://github.com/albertorestifo/node-dijkstra#graphpathstart-goal--options) of the library as a third parameter of `getRoute`.
 
-*   `trim: boolean`, default `false`: If set to true, the result won't include the start and end stations.
-*   `reverse: boolean`, default `false`: If set to true, the route array will be in reversed order, from the end to start
-*   `avoid: array`, default `[]`: Stations to be avoided
+- `trim: boolean`, default `false`: If set to true, the result won't include the start and end stations.
+- `reverse: boolean`, default `false`: If set to true, the route array will be in reversed order, from the end to start
+- `avoid: array`, default `[]`: Stations to be avoided
 
 ---
 

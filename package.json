@@ -1,22 +1,22 @@
 {
-    "name": "ratakilometri",
-    "version": "2.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "jest"
-    },
-    "author": "Petja Touru <hello@petja.me>",
-    "license": "MIT",
-    "dependencies": {
-        "node-dijkstra": "^2.5.0"
-    },
-    "devDependencies": {
-        "jest": "^22.4.3"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/petja/ratakilometri.js"
-    },
-    "homepage": "https://github.com/petja/ratakilometri.js#readme"
+  "name": "ratakilometri",
+  "version": "3.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Petja Touru <hello@petja.me>",
+  "license": "MIT",
+  "dependencies": {
+    "node-dijkstra": "^2.5.0"
+  },
+  "devDependencies": {
+    "jest": "^22.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/petja/ratakilometri.js"
+  },
+  "homepage": "https://github.com/petja/ratakilometri.js#readme"
 }
