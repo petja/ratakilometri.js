@@ -1,5 +1,5 @@
-const Graph = require('node-dijkstra')
-const edges = require('./edges')
+import Graph from 'node-dijkstra'
+import edges from './edges'
 
 const createGraph = () =>
   edges.reduce((acc, { stationA, stationB, distance }) => {
@@ -16,7 +16,7 @@ const createConnection = (stationA, stationB, distance, obj) => {
   return obj
 }
 
-module.exports = () => {
+export default () => {
   const graph = new Graph(createGraph())
 
   return {

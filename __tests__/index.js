@@ -1,4 +1,4 @@
-const { getRoute, getDistance } = require('../index')()
+const { getRoute, getDistance } = require('../dist/index').default()
 
 // Get route
 test('getRoute return array', () => {

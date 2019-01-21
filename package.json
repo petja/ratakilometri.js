@@ -2,17 +2,27 @@
   "name": "ratakilometri",
   "version": "3.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "jest"
+    "clean": "rm -rf ./dist && mkdir dist && touch dist/index.js",
+    "build": "npm run clean && parcel build index.ts --target node",
+    "start": "npm run clean && parcel watch index.ts --target node & nodemon ./dist/index.js",
+    "test": "npm run build && jest"
   },
   "author": "Petja Touru <hello@petja.me>",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "node-dijkstra": "^2.5.0"
   },
   "devDependencies": {
-    "jest": "^22.4.3"
+    "@types/node": "^10.12.18",
+    "jest": "^22.4.3",
+    "nodemon": "^1.18.9",
+    "parcel-bundler": "^1.11.0",
+    "typescript": "^3.2.4"
   },
   "repository": {
     "type": "git",
